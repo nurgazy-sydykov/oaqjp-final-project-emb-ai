@@ -12,10 +12,12 @@ def detector():
     # Pass the text to the sentiment_analyzer function and store the response
     response = emotion_detector(text_to_analyze)
     text = json.dumps(response)
-    text = text.replace('{','')
-    text = text.replace('}', '')
-    new_text = text.replace(', "dominant_emotion": "', '. The dominant emotion is ')
-    return f'For the given statement, the system response is {new_text}.'
+    if text_to_analyze:
+        text = text.replace('{','')
+        text = text.replace('}', '')
+        new_text = text.replace(', "dominant_emotion": "', '. The dominant emotion is ')
+        return f'For the given statement, the system response is {new_text}.'
+    return f'{text[1:-1]}'
 @app.route("/")
 def render_index_page():
     # Returning rendered template
